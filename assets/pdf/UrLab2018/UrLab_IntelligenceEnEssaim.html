@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Jacopo De Stefani" />
+  <meta name="dcterms.date" content="2018-05-03" />
+  <title>Intelligence en Essaim</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="UrLab_IntelligenceEnEssaim_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="UrLab_IntelligenceEnEssaim_files/reveal.js-3.3.0.1/css/theme/sky.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="css\style.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Intelligence en Essaim</h1>
+    <h2 class="author">Jacopo De Stefani</h2>
+    <h3 class="date">05/03/2018</h3>
+</section>
+
+<section><section id="pourquoi-je-vous-parle-de-ca" class="titleslide slide level1"><h1>Pourquoi je vous parle de ça?</h1></section><section id="section" class="slide level2">
+<h2></h2>
+<div id="left">
+<p><img style="width:80%;height:auto;" src="img/PictureCV.jpg"></p>
+</div>
+<div id="right">
+<p><br></p>
+<ul>
+<li><p><strong>Etudiant (2012-2013):</strong> INFO-H-414 - Swarm Intelligence <br></p></li>
+<li><p><strong>Mémoire (2013-2015):</strong> Spatial Allocation in Swarm Robotics <br></p></li>
+<li><p><strong>Actuellement:</strong> Doctorant en Machine Learning</p></li>
+</ul>
+</div>
+</section></section>
+<section><section id="quest-ce-que-cest" class="titleslide slide level1"><h1>Qu’est-ce que c’est?</h1></section><section id="swarm-intelligence" class="slide level2">
+<h2>Swarm Intelligence</h2>
+<p><q> “Swarm intelligence is the discipline that deals with natural and artificial systems composed of many individuals that coordinate using decentralized control and self-organization.” </q></p>
+<p style="text-align:right;font-size: 50%;">
+Marco Dorigo and Mauro Birattari (2007) <a href="http://www.scholarpedia.org/article/Swarm_intelligence">Swarm intelligence</a>. <a href="http://www.scholarpedia.org/">Scholarpedia</a>, 2(9):1462.
+</p>
+</section><section id="self-organization" class="slide level2">
+<h2>Self-organization</h2>
+<p><q>“Self-organization is a process in which pattern at the global level of a system emerges solely from numerous interactions among the lower-level components of the system. Moreover, the rules specifying interactions among the system’s components are executed using only local information, without reference to the global pattern” </q></p>
+<p style="text-align:right;font-size: 50%;">
+Gerardo Beni. From swarm intelligence to swarm robotics. In Swarm Robotics, pages 1-9. Springer, 2005.
+</p>
+</section><section id="section-1" class="slide level2" data-background="img/BaranDecentralized.png">
+<h2></h2>
+</section><section id="taxonomie---sur-base-de-la-nature-des-agents" class="slide level2">
+<h2>Taxonomie - Sur base de la nature des agents:</h2>
+<div id="left">
+<img style="width:80%;height:auto;" src="img/AntsSwarm.jpg">
+<p style="text-indent:-10px;text-align:center;">
+<strong>Naturel</strong>
+</p>
+</div>
+<div id="right">
+<img style="width:auto;height:auto;" src="img/ArtificialSwarm.png">
+<p style="text-align:center;">
+<strong>Artificiel</strong>
+</p>
+</div>
+</section><section id="taxonomie---sur-base-de-lobjectif" class="slide level2">
+<h2>Taxonomie - Sur base de l’objectif:</h2>
+<div id="left">
+<br> <span class="math display">\[ y_i = f(?,?,?) \]</span> <br>
+<p style="text-indent:-10px;text-align:center;">
+<strong>Scientifique</strong> : Comprehension du système
+</p>
+</div>
+<div id="right">
+<br> <span class="math display">\[ f(x_1,\cdots,x_n) \rightarrow y_1,\cdots,y_n \]</span> <br>
+<p style="text-align:center;">
+<strong>Ingégnerie</strong> : Exploitation du système
+</p>
+</div>
+</section></section>
+<section><section id="examples---naturels" class="titleslide slide level1"><h1>Examples - Naturels</h1></section><section id="flocking" class="slide level2">
+<h2>Flocking</h2>
+<p><img src="img/flockBirds.jpg"></p>
+</section><section id="schooling" class="slide level2">
+<h2>Schooling</h2>
+<p><img src="img/fishSchool.jpg"></p>
+</section><section id="comment-ca-marche" class="slide level2">
+<h2>Comment ça marche?</h2>
+<p><img src="img/boidsThreeRules.png"></p>
+<p style="text-align:right;font-size: 50%;">
+Reynolds, Craig W. “Flocks, herds and schools: A distributed behavioral model.” ACM SIGGRAPH computer graphics. Vol. 21. No. 4. ACM, 1987. <a href="http://www.red3d.com/cwr/boids/" class="uri">http://www.red3d.com/cwr/boids/</a>
+</p>
+</section><section id="synchronisation-des-metronomes" class="slide level2">
+<h2>Synchronisation des metronomes</h2>
+<iframe width="800" height="600" src="https://www.youtube.com/embed/Aaxw4zbULMs" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</section><section id="synchronisation-des-lucioles" class="slide level2">
+<h2>Synchronisation des lucioles</h2>
+<iframe width="800" height="600" src="https://www.youtube.com/embed/ZGvtnE1Wy6U" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</section><section id="comment-ca-marche-1" class="slide level2">
+<h2>Comment ça marche?</h2>
+<code class="python" data-trim data-noescape>
+<pre>
+while(True):
+  counter +=1
+
+  # Signaling part
+  if counter > T:
+    signal
+    counter = 0
+    
+  # Synchronization
+  if signal_detected:
+    counter += alpha * counter
+
+</pre>
+<p></code></p>
+</section></section>
+<section><section id="examples---artificiels" class="titleslide slide level1"><h1>Examples - Artificiels</h1></section><section id="robotique-en-essaim" class="slide level2">
+<h2>Robotique en essaim</h2>
+<p><q> “Swarm robotics is the study of how to design groups of robots that operate without relying on any external infrastructure or on any form of centralized control. In a robot swarm, the collective behavior of the robots results from local interactions between the robots and between the robots and the environment in which they act” </q></p>
+<p style="text-align:right;font-size: 50%;">
+Marco Dorigo et al. (2014) <a href="http://www.scholarpedia.org/article/Swarm_robotics">Swarm robotics</a>. <a href="http://www.scholarpedia.org/">Scholarpedia</a>, 9(1):1463.
+</p>
+<p style="text-align:right;font-size: 50%;">
+M. Brambilla, E. Ferrante, M. Birattari, and M. Dorigo. Swarm robotics: a review from the swarm engineering perspective. Swarm Intelligence, 7(1):1-41, 2013.
+</p>
+<h3 id="proprietes-desirees">Propriètes desirées:</h3>
+<ul>
+<li>Tolerance au défauts</li>
+<li>Scalabilité</li>
+<li>Flexibilité</li>
+</ul>
+</section><section id="transport-collectif" class="slide level2">
+<h2>Transport collectif</h2>
+<iframe width="800" height="600" src="https://www.youtube.com/embed/seGqyO32pv4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</section><section id="auto-assemblage" class="slide level2">
+<h2>Auto-assemblage</h2>
+<iframe width="800" height="600" src="https://www.youtube.com/embed/cEKCcs8-O4A" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</section><section id="essaim-heterogene" class="slide level2">
+<h2>Essaim héterogène</h2>
+<iframe width="800" height="600" src="https://www.youtube.com/embed/M2nn1X9Xlps" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</section><section id="aco" class="slide level2">
+<h2>ACO</h2>
+<p><q> Ant colony optimization (ACO) is a population-based metaheuristic that can be used to find approximate solutions to NP-hard optimization problems. </q></p>
+<p style="text-align:right;font-size: 50%;">
+Marco Dorigo (2007) <a href="http://www.scholarpedia.org/article/Ant_colony_optimization">Ant colony optimization</a>. <a href="http://www.scholarpedia.org/">Scholarpedia</a>, 2(3):1461.
+</p>
+<p><br></p>
+<h3 id="pseudo-code">Pseudo-code</h3>
+<pre>
+1. Initialization fourmis
+2. Selection route
+3. Mise à jour phéromone
+</pre>
+</section><section id="equations" class="slide level2">
+<h2>Equations</h2>
+<h3 id="aco---pseudo-code">ACO - Pseudo-code</h3>
+<pre>
+1. Initialization fourmis
+2. Selection route
+3. Mise à jour phéromone
+</pre>
+<h3 id="selection-route">Selection route</h3>
+<p><span class="math display">\[
+p_{xy}^k =
+\frac
+{ (\tau_{xy}^{\alpha}) (\eta_{xy}^{\beta}) }
+{ \sum_{z\in \mathrm{allowed}_y} (\tau_{xz}^{\alpha}) (\eta_{xz}^{\beta}) }
+\]</span></p>
+<h3 id="mise-a-jour-pheromone">Mise à jour pheromone</h3>
+<p><span class="math display">\[
+\tau_{xy} \leftarrow
+(1-\rho)\tau_{xy} + \sum_{k}\Delta \tau^{k}_{xy}
+\]</span></p>
+<p>où:</p>
+<p><span class="math inline">\(\eta_{xy}\)</span> represente la valeur héuristique associé au problème</p>
+<p><span class="math inline">\(\tau_{xy}\)</span> represente la valeur du pheromone</p>
+</section><section id="application---probleme-du-commis-voyageur-tsp" class="slide level2">
+<h2>Application - Problème du commis voyageur (TSP)</h2>
+<p><img style= "align:center;" src="img/TSP.png"></p>
+<h3 id="solution-possible">Solution possible:</h3>
+<p>Permutation des villes: <span class="math display">\[ [v_1, \cdots, v_n] \]</span></p>
+<h3 id="formulation">Formulation:</h3>
+<p><span class="math display">\[\eta_{xy} \rightarrow \frac{1}{d_{xy}}\]</span></p>
+</section></section>
+<section><section id="et-maintenant-a-vous-dessayer" class="titleslide slide level1"><h1>Et maintenant à vous d’essayer!</h1></section><section id="ici" class="slide level2">
+<h2>Ici</h2>
+<h2>
+<a href="http://www.wooclap.com/LDHHPB" class="uri">http://www.wooclap.com/LDHHPB</a>
+</h2>
+</section><section id="mais-aussi-chez-vous" class="slide level2">
+<h2>Mais aussi chez vous!</h2>
+<h3 id="argos---simulateur">ARGOS - Simulateur</h3>
+<p><a href="http://www.argos-sim.info/" class="uri">http://www.argos-sim.info/</a></p>
+<h3 id="simulations">Simulations</h3>
+<p><a href="http://iridia.ulb.ac.be/~lgarattoni/h-414/" class="uri">http://iridia.ulb.ac.be/~lgarattoni/h-414/</a></p>
+</section></section>
+<section><section id="section-2" class="titleslide slide level1" data-background="img/end.png"><h1></h1></section></section>
+<section><section id="des-questions" class="titleslide slide level1"><h1>Des questions?</h1></section><section id="section-3" class="slide level2">
+<h2></h2>
+<p><img src="img/Questions.png"></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="UrLab_IntelligenceEnEssaim_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="UrLab_IntelligenceEnEssaim_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
